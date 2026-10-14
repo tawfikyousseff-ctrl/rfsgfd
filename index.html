@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#08161a">
+<title>ملاح داخلي بالواقع المعزز</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<main>
+  <section id="intro">
+    <h1>ملاح داخلي بالواقع المعزز</h1>
+    <p class="lead">يستخدم الكاميرا الخلفية لهاتفك لاكتشاف الأبواب والسلالم والعوائق، ويرشدك بالصوت والسهم على الشاشة. بدون GPS وبدون أكواد QR.</p>
+    <ul class="notes">
+      <li>أمسك الهاتف رأسيًا أمام صدرك والكاميرا للأمام.</li>
+      <li>الموقع تقديري: يعتمد على عدّ الخطوات واتجاه الهاتف، وينحرف مع الوقت.</li>
+      <li>لا تعتمد عليه وحده في السلالم أو الأماكن الخطرة.</li>
+    </ul>
+    <button id="btnStart" class="primary">ابدأ الكاميرا</button>
+    <p id="err" class="err" role="alert"></p>
+  </section>
+
+  <section id="stage" hidden>
+    <div class="viewport">
+      <video id="video" playsinline muted autoplay></video>
+      <canvas id="overlay"></canvas>
+      <div id="banner" class="banner ok">
+        <div id="bannerMain">جارٍ التحضير…</div>
+        <div id="bannerHint"></div>
+      </div>
+      <div class="chips">
+        <span id="chipCam" class="chip">الكاميرا</span>
+        <span id="chipVO" class="chip">تتبع بصري</span>
+        <span id="chipNet" class="chip">الخادم</span>
+      </div>
+    </div>
+
+    <section class="panel">
+      <div class="mapRow">
+        <canvas id="mini" width="220" height="220" aria-label="خريطة مصغرة"></canvas>
+        <dl class="stats">
+          <dt>الخطوات</dt><dd id="stSteps">0</dd>
+          <dt>الموقع (م)</dt><dd id="stPos">0 , 0</dd>
+          <dt>الاتجاه</dt><dd id="stHead">—</dd>
+          <dt>الهدف</dt><dd id="stTarget">لا يوجد</dd>
+        </dl>
+      </div>
+
+      <div class="buttons">
+        <button id="btnVoice" class="on">🔊 الصوت: يعمل</button>
+        <button id="btnSave">📍 حفظ هذا المكان</button>
+        <button id="btnReset">↺ ضبط نقطة البداية هنا</button>
+        <button id="btnStep" class="ghost">+ خطوة (اختبار)</button>
+      </div>
+
+      <label class="field">طول الخطوة (متر)
+        <input id="stepLen" type="number" min="0.4" max="1.0" step="0.05" value="0.65" inputmode="decimal">
+      </label>
+
+      <h2>الأماكن المحفوظة</h2>
+      <ul id="places"></ul>
+      <p class="small">ابدأ دائمًا من نفس النقطة وبنفس الاتجاه حتى تبقى الأماكن المحفوظة صالحة.</p>
+    </section>
+  </section>
+</main>
+<script src="/static/app.js"></script>
+</body>
+</html>
